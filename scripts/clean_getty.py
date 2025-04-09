@@ -49,7 +49,7 @@ for i in range(1,n+1):
     dataframes[f'df{i}']=df
 
 
-#
+#######################################################
 ###This deletes the missing columns for each dataframe.
 #######################################################
 
@@ -57,6 +57,16 @@ for i in range(1,n+1):
     print(i, len(dataframes[f'df{i}'].columns))
     dataframes[f'df{i}']=delete_missing_cols(dataframes[f'df{i}'])
     print(i, len(dataframes[f'df{i}'].columns)) 
+
+
+    
+####################################################################################
+###Save to folder
+####################################################################################
+
+clean_file_location = os.path.join(os.path.dirname(current_dir), 'clean_getty_csvs')
+for i in range(1, n+1):
+    dataframes[f'df{i}'].to_csv(clean_file_location+f'/df{i}.csv')
 
 
 
