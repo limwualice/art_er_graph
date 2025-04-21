@@ -2,3 +2,4 @@
 getty_csvs/
 .ipynb_checkpoints/
 .DS_Store
+clean_getty_csvs/
