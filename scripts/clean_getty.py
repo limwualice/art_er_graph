@@ -65,25 +65,33 @@ def clean_dataframe(df):
     """
 
     for col in df.columns:
-        if df[col].dtype == 'object':  # Process only string columns
-            # Trim leading/trailing whitespace and remove special characters
-            df[col] = df[col].str.strip().str.replace(r'[^\w\s]', '', regex=True).str.lower()
+        # if df[col].dtype == 'object':  # Process only string columns
+        # Convert the column to string type *before* any other operations
+        df[col] = df[col].astype(str)
 
-            # Standardize date formats
-            try:
-                df[col] = df[col].apply(lambda x: datetime.strptime(str(x), '%Y-%m-%d').strftime('%Y-%m-%d')
+        # Trim leading/trailing whitespace and remove special characters, then lowercase
+        df[col] = df[col].str.strip().str.replace(r'[^\w\s]', '', regex=True).str.lower()
+            
+        # Trim leading/trailing whitespace and remove special characters
+        df[col] = df[col].str.strip().str.replace(r'[^\w\s]', '', regex=True)
+        df[col]=df[col].str.lower()
+        print(df[col].head())
+
+        # Standardize date formats
+        try:
+            df[col] = df[col].apply(lambda x: datetime.strptime(str(x), '%Y-%m-%d').strftime('%Y-%m-%d')
                                        if re.match(r'\d{4}-\d{2}-\d{2}', str(x))
                                        else (datetime.strptime(str(x), '%m/%d/%Y').strftime('%Y-%m-%d')
                                              if re.match(r'\d{2}/\d{2}/\d{4}', str(x))
                                              else x))
-            except ValueError:
-                pass  # If not a recognizable date format, leave as is
+        except ValueError:
+            pass  # If not a recognizable date format, leave as is
 
-            # Replace abbreviations
-            df[col] = df[col].str.replace(r'\bSt\.\b', 'Street', regex=True)
-            df[col] = df[col].str.replace(r'\bRd\.\b', 'Road', regex=True)
-            df[col] = df[col].str.replace(r'\bAve\.\b', 'Avenue', regex=True)
-            df[col] = df[col].str.replace(r'\bDr\.\b', 'Drive', regex=True)
+        # Replace abbreviations
+        df[col] = df[col].str.replace(r'\bst\.\b', 'street', regex=True)
+        df[col] = df[col].str.replace(r'\brd\.\b', 'road', regex=True)
+        df[col] = df[col].str.replace(r'\bave\.\b', 'avenue', regex=True)
+        df[col] = df[col].str.replace(r'\bdr\.\b', 'drive', regex=True)
 
 
     return df
@@ -351,8 +359,11 @@ for i in range(1,n+1):
 ###Save to folder
 ####################################################################################
 
+
+print('********************** saving **********************')
 clean_file_location = os.path.join(os.path.dirname(current_dir), 'clean_getty_csvs')
 for i in range(1, n+1):
+    print(i)
     dataframes[f'df{i}'].to_csv(clean_file_location+f'/df{i}.csv', index=False)
 
 
