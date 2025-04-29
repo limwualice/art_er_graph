@@ -75,7 +75,7 @@ def clean_dataframe(df):
         # Trim leading/trailing whitespace and remove special characters
         df[col] = df[col].str.strip().str.replace(r'[^\w\s]', '', regex=True)
         df[col]=df[col].str.lower()
-        print(df[col].head())
+        # print(df[col].head())
 
         # Standardize date formats
         try:
@@ -254,61 +254,61 @@ extra=['pg','house_ulan_1','house_ulan_2','house_ulan_3','house_ulan_4','ppg']
 #this is our current directory
 current_dir=os.getcwd()
 
-dtype_dict = {
-    # Codes
-    'catalog_number': 'string',
-    'sale_code': 'string',
+# dtype_dict = {
+#     # Codes
+#     'catalog_number': 'string',
+#     'sale_code': 'string',
 
-    # Lot info
-    'lot_number': 'string',
-    'lot_sale_year': 'Int64',
-    'lot_sale_month': 'Int64',
-    'lot_sale_day': 'Int64',
-    'lot_sale_mod': 'string',
-    'lot_notes': 'string',
+#     # Lot info
+#     'lot_number': 'string',
+#     'lot_sale_year': 'Int64',
+#     'lot_sale_month': 'Int64',
+#     'lot_sale_day': 'Int64',
+#     'lot_sale_mod': 'string',
+#     'lot_notes': 'string',
 
-    # Auction house
-    'auction_house_1': 'string',
-    'auction_house_2': 'string',
-    'auction_house_3': 'string',
-    'auction_house_4': 'string',
+#     # Auction house
+#     'auction_house_1': 'string',
+#     'auction_house_2': 'string',
+#     'auction_house_3': 'string',
+#     'auction_house_4': 'string',
 
-    # Title info
-    'title': 'string',
-    'title_modifier': 'string',
-    'title_translation': 'string',
+#     # Title info
+#     'title': 'string',
+#     'title_modifier': 'string',
+#     'title_translation': 'string',
 
-    # Artists
-    **{col: 'string' for col in (artist1 + artist2 + artist3 + artist4 + artist5)},
+#     # Artists
+#     **{col: 'string' for col in (artist1 + artist2 + artist3 + artist4 + artist5)},
 
-    # Art info
-    'hand_note_1': 'string',
-    'hand_note_so_1': 'string',
-    'hand_note_2': 'string',
-    'hand_note_so_2': 'string',
-    'hand_note_3': 'string',
-    'hand_note_so_3': 'string',
-    'hand_note_4': 'string',
-    'hand_note_so_4': 'string',
-    'hand_note_5': 'string',
-    'hand_note_so_5': 'string',
-    'hand_note_6': 'string',
-    'hand_note_so_6': 'string',
-    'hand_note_7': 'string',
-    'hand_note_so_7': 'string',
-    'object_type': 'string',
-    'materials': 'string',
-    'dimensions': 'string',
-    'formatted_dimens': 'string',
-    'format': 'string',
-    'genre': 'string',
-    'subject': 'string',
-    'inscription': 'string',
+#     # Art info
+#     'hand_note_1': 'string',
+#     'hand_note_so_1': 'string',
+#     'hand_note_2': 'string',
+#     'hand_note_so_2': 'string',
+#     'hand_note_3': 'string',
+#     'hand_note_so_3': 'string',
+#     'hand_note_4': 'string',
+#     'hand_note_so_4': 'string',
+#     'hand_note_5': 'string',
+#     'hand_note_so_5': 'string',
+#     'hand_note_6': 'string',
+#     'hand_note_so_6': 'string',
+#     'hand_note_7': 'string',
+#     'hand_note_so_7': 'string',
+#     'object_type': 'string',
+#     'materials': 'string',
+#     'dimensions': 'string',
+#     'formatted_dimens': 'string',
+#     'format': 'string',
+#     'genre': 'string',
+#     'subject': 'string',
+#     'inscription': 'string',
 
-**{col: 'string' for col in (auctioner1 + auctioner2 + auctioner3 + auctioner4)},
-**{col: 'string' for col in (commissaire1 + commissaire2 + commissaire3 + commissaire4)},
-**{col: 'string' for col in (seller1 + seller2 + seller3 + seller4 + seller5 + seller6)},
-}
+# **{col: 'string' for col in (auctioner1 + auctioner2 + auctioner3 + auctioner4)},
+# **{col: 'string' for col in (commissaire1 + commissaire2 + commissaire3 + commissaire4)},
+# **{col: 'string' for col in (seller1 + seller2 + seller3 + seller4 + seller5 + seller6)},
+# }
 
 #this is where the getty csv's are
 file_location = os.path.join(os.path.dirname(current_dir), 'getty_csvs')
@@ -321,7 +321,8 @@ n=13
 
 for i in range(1,n+1):
     print(i)
-    df=pd.read_csv(f'{file_location}/sales_contents_{i}.csv', low_memory=False, dtype=dtype_dict)
+    df=pd.read_csv(f'{file_location}/sales_contents_{i}.csv', low_memory=False)
+                   # , dtype=dtype_dict)
     dataframes[f'df{i}']=df
 
 
