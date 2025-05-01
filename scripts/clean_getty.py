@@ -355,6 +355,8 @@ print('********************** cleaning **********************')
 for i in range(1,n+1):
     print(i)
     dataframes[f'df{i}']=clean_dataframe(dataframes[f'df{i}'])
+    dataframes[f'df{i}']['unique_id']=dataframes[f'df{i}'].index
+
     
 ####################################################################################
 ###Save to folder
