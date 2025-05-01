@@ -1,23 +1,22 @@
 import pandas as pd
 import numpy as np
 import os
+import json
 
-def save_file(folder_name):
+############# This function gives us the directory that we want to go to #############
+
+def file_location(folder_name):
     #this is our current directory
     current_dir=os.getcwd()
 
-    #this is where the getty csv's are
+    #this is where the csv's that I'm interested are located
     file_location = os.path.join(os.path.dirname(current_dir), folder_name)
 
     return file_location
 
-### This cell reads in 13 cleaned up dataframes
-
-#this is our current directory
-current_dir=os.getcwd()
-
+############# This cell reads in 13 cleaned up dataframes#############
 #this is where the getty csv's are
-file_location = os.path.join(os.path.dirname(current_dir), 'clean_getty_csvs')
+file_location = file_location('clean_getty_csvs')
 
 #dictionary
 dataframes={}
@@ -31,19 +30,19 @@ for i in range(1,n+1):
     dataframes[f'df{i}']=df
 
 
-import json
-file_path = f'{os.path.join(os.path.dirname(current_dir), 'text_files')}/entities.json'  # Replace with the actual path to your JSON file
+
+
+############# Concatenate dataframes based on entity types #############
+
+file_path = f'{file_location('text_files')}/entities.json' 
 with open(file_path, 'r') as f:
     data_dictionary = json.load(f)
 
 
 concatenated_dfs={}
-# import pyarrow.parquet as pq  # Example for pyarrow
-# or
-
 
 if data_dictionary: # Check if data_dictionary is not empty
-    concatenated_file_location=save_file('concatenated_getty_parquet')
+    concatenated_file_location=file_location('concatenated_getty_parquet')
 
     for key, column_names_to_keep in data_dictionary.items():  # Iterate through the dictionary items
         list_of_valid_dataframes = []  # Reset for each entity

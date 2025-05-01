@@ -3,3 +3,14 @@ getty_csvs/
 .ipynb_checkpoints/
 .DS_Store
 clean_getty_csvs/
+../concatenated_getty_parquet/
+../notebooks/.tmp/
+../notebooks/Untitled.ipynb
+../notebooks/blocking.ipynb
+../notebooks/dedupe_test.ipynb
+../notebooks/splink_test.ipynb
+csv_example.py
+dedupe_test.py
+leaned_setting
+learned_setting
+training_file.json
